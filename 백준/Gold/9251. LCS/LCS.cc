@@ -20,17 +20,14 @@ int lcs(std::string text1, std::string text2) {
             }
         }
     }
-
+    
     return max_length;
-
 }
 
 int main() {
 
     std::string text1, text2;
-
     std::cin >> text1 >> text2;
-    
     std::cout << lcs(text1, text2);
 
     return 0;
