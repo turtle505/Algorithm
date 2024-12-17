@@ -3,16 +3,6 @@
 #include <vector>
 using namespace std;
 
-int palindrome(int arr[], int a, int b) {
-    while(1) {
-        if (arr[a-1] != arr[b-1]) return 0;
-        a++;
-        b--;
-        if (a >= b) break;
-    }
-
-    return 1;
-}
 
 int main() {
 
@@ -43,7 +33,7 @@ int main() {
 
             while(1) {
                 if (arr[a-1] != arr[b-1]) {
-                    dp[i][i+length - 1] = 0;
+                    dp[i][i+length-1] = 0;
                     break;
                 }
 
