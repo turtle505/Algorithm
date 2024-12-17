@@ -23,10 +23,7 @@ int main() {
             if (arr[j] < arr[i]) cp[i] = max(cp[j]+1, cp[i]);
         }
 
-        if (max_length < cp[i]) {
-            max_length = cp[i];
-            max_idx = i;
-        }
+        max_length = max(max_length, cp[i]);
     }
 
     cout << max_length << '\n';
