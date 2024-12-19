@@ -18,7 +18,6 @@ int main() {
     cin >> r >> c;
 
     int matrix[r][c];
-    int fire[r][c] = {};
     int jihoon[r][c] = {};
 
     pair<int, int> first_location;
@@ -36,10 +35,8 @@ int main() {
             if (tmp == '#') matrix[i][j] = -1; // 벽
             else if (tmp == 'F') {
                 matrix[i][j] = 1; // 불
-                fire[i][j] = 1;
                 Q.push({i, j});
             } else if (tmp == 'J') {
-
                 jihoon[i][j] = 1;
                 first_location = {i, j};
                 matrix[i][j] = 0; // 빈공간 취급
@@ -48,11 +45,6 @@ int main() {
         }
     }
 
-    if (first_location.first == 0 || first_location.first == r-1 || first_location.second == 0 || first_location.second == c-1) {
-        cout << 1;
-        return 0;
-    }
-
     while(!Q.empty()) {
         pair<int, int> cur = Q.front();
         Q.pop();
@@ -62,28 +54,24 @@ int main() {
             int ny = cur.second + dy[dir];
 
             if (nx < 0 || nx >= r || ny < 0 || ny >= c) continue;
-            if (matrix[nx][ny] == -1 || fire[nx][ny] != 0) continue;
+            if (matrix[nx][ny] == -1 || matrix[nx][ny] != 0) continue;
 
-            fire[nx][ny] = fire[cur.first][cur.second] + 1;
+            matrix[nx][ny] = matrix[cur.first][cur.second] + 1;
             Q.push({nx, ny});
-            
        }
     }
 
-    // for (int i=0; i<r; i++) {
-    //     for (int j=0; j<c; j++) {
-    //         cout << fire[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-
     Q.push(first_location);
 
-    int min = r*c;
+    int min = r * c + 1;
     
     while(!Q.empty()) {
         pair<int, int> cur = Q.front();
         Q.pop();
+
+        if (cur.first == 0 || cur.first == r-1 || cur.second == 0 || cur.second == c-1) {
+            if (min > jihoon[cur.first][cur.second]) min = jihoon[cur.first][cur.second];
+        }
 
         for (int dir=0; dir<4; dir++) {
             int nx = cur.first + dx[dir];
@@ -91,28 +79,15 @@ int main() {
 
             if (nx < 0 || nx >= r || ny < 0 || ny >= c) continue;
             if (matrix[nx][ny] == -1 || jihoon[nx][ny] != 0) continue;
-            if (fire[nx][ny] != 0 && fire[nx][ny] <= jihoon[cur.first][cur.second] + 1) continue;
+            if (matrix[nx][ny] != 0 && matrix[nx][ny] <= jihoon[cur.first][cur.second] + 1) continue;
 
-        
             jihoon[nx][ny] = jihoon[cur.first][cur.second] + 1;
-            if (nx == 0 || nx == r-1 || ny == 0 || ny == c-1) {
-                if (min > jihoon[nx][ny]) min = jihoon[nx][ny];
-            }
             Q.push({nx, ny});
-             
        }
     }
 
-    // for (int i=0; i<r; i++) {
-    //     for (int j=0; j<c; j++) {
-    //         cout << jihoon[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-
-    if (min == r*c) cout << "IMPOSSIBLE";
+    if (min == r * c + 1) cout << "IMPOSSIBLE";
     else cout << min;
-
 
     return 0;
 }
