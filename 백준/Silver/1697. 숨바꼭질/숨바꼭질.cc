@@ -15,7 +15,7 @@ int main() {
 
     queue<int> Q;
 
-    int visit[300000] = {};
+    int visit[100001] = {};
 
     Q.push(n);
     visit[n] = 1;
@@ -33,7 +33,7 @@ int main() {
         int nx[3] = {cur - 1, cur + 1, cur * 2};
 
         for (int i=0; i<3; i++) {
-            if (nx[i] < 0 || nx[i] >= 300000 || visit[nx[i]] > 0)  continue;
+            if (nx[i] < 0 || nx[i] >= 100001 || visit[nx[i]] > 0)  continue;
        
             if (visit[nx[i]] == -1) {
                 cout << visit[cur];
