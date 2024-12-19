@@ -69,19 +69,22 @@ int main() {
         pair<int, int> cur = Q.front();
         Q.pop();
 
-        if (cur.first == 0 || cur.first == r-1 || cur.second == 0 || cur.second == c-1) {
-            if (min > jihoon[cur.first][cur.second]) min = jihoon[cur.first][cur.second];
+        int cur_x = cur.first;
+        int cur_y = cur.second;
+
+        if (cur_x == 0 || cur_x == r-1 || cur_y == 0 || cur_y == c-1) {
+            if (min > jihoon[cur_x][cur_y]) min = jihoon[cur_x][cur_y];
         }
 
         for (int dir=0; dir<4; dir++) {
-            int nx = cur.first + dx[dir];
-            int ny = cur.second + dy[dir];
+            int nx = cur_x + dx[dir];
+            int ny = cur_y + dy[dir];
 
             if (nx < 0 || nx >= r || ny < 0 || ny >= c) continue;
             if (matrix[nx][ny] == -1 || jihoon[nx][ny] != 0) continue;
-            if (matrix[nx][ny] != 0 && matrix[nx][ny] <= jihoon[cur.first][cur.second] + 1) continue;
+            if (matrix[nx][ny] != 0 && matrix[nx][ny] <= jihoon[cur_x][cur_y] + 1) continue;
 
-            jihoon[nx][ny] = jihoon[cur.first][cur.second] + 1;
+            jihoon[nx][ny] = jihoon[cur_x][cur_y] + 1;
             Q.push({nx, ny});
        }
     }
