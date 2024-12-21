@@ -15,15 +15,13 @@ int main() {
     int n;
     cin >> n;
 
-    int matrix[n][n] = {};
+    char matrix[n][n] = {};
 
     for (int i=0; i<n; i++) {
         string str;
         cin >> str;
         for (int j=0; j<n; j++) {
-            if (str[j] == 'R') matrix[i][j] = 0;
-            else if (str[j] == 'G') matrix[i][j] = 1;
-            else matrix[i][j] = 2;
+           matrix[i][j] = str.at(j);
         }
     }
 
@@ -34,7 +32,7 @@ int main() {
     
     for (int i=0; i<n; i++) {
         for (int j=0; j<n; j++) {
-            int color;
+            char color;
             if (visit[i][j] == 0) {
                 Q.push({i, j});
                 visit[i][j] = 1;
@@ -60,16 +58,18 @@ int main() {
         }
     }
 
-    int visit_blind[n][n] = {};
+    for (int i=0; i<n; i++) {
+        fill(visit[i], visit[i]+n, 0);
+    }
 
     int count_blind = 0;
     
     for (int i=0; i<n; i++) {
         for (int j=0; j<n; j++) {
-            int color;
-            if (visit_blind[i][j] == 0) {
+            char color;
+            if (visit[i][j] == 0) {
                 Q.push({i, j});
-                visit_blind[i][j] = 1;
+                visit[i][j] = 1;
                 color = matrix[i][j];
                 count_blind++;
             }
@@ -83,16 +83,16 @@ int main() {
                     int ny = cur.second + dy[dir];
 
                     if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-                    if (visit_blind[nx][ny] != 0) continue;
+                    if (visit[nx][ny] != 0) continue;
 
-                    if (color == 0 || color == 1) {
-                        if (matrix[nx][ny] == 2) continue;
+                    if (color == 'R' || color == 'G') {
+                        if (matrix[nx][ny] == 'B') continue;
                     } else {
-                        if (matrix[nx][ny] != 2) continue;
+                        if (matrix[nx][ny] != 'B') continue;
                     }
 
                     Q.push({nx, ny});
-                    visit_blind[nx][ny] = 1;
+                    visit[nx][ny] = 1;
                 }
             }
         }
