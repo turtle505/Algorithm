@@ -26,30 +26,10 @@ void func(int n, int a, int b) { // 왼쪽 위 좌표
         return;
     } 
 
-    if (check(n/2, a, b) == -1) {
-        func(n/2, a, b);
-    } else {
-        count[check(n/2, a, b)]++;
-    }
-
-    if (check(n/2, a+n/2, b) == -1) {
-        func(n/2, a+n/2, b);
-    } else {
-        count[check(n/2, a+n/2, b)]++;
-    }
-
-    if (check(n/2, a, b+n/2) == -1) {
-        func(n/2, a, b+n/2);
-    } else {
-        count[check(n/2, a, b+n/2)]++;
-    }
-    
-    if (check(n/2, a+n/2, b+n/2) == -1) {
-        func(n/2, a+n/2, b+n/2);
-    } else {
-        count[check(n/2, a+n/2, b+n/2)]++;
-    }
-    
+    func(n/2, a, b);
+    func(n/2, a+n/2, b);
+    func(n/2, a, b+n/2);
+    func(n/2, a+n/2, b+n/2);
 }
 
 int main() {
