@@ -2,7 +2,7 @@
 using namespace std;
 
 int n, m;
-int arr[10];
+int arr[8];
 bool isused[10];
 
 void func(int k) {
@@ -11,7 +11,6 @@ void func(int k) {
             cout << arr[i] << ' ';
         }
         cout << '\n';
-        return;
     }
 
     for (int i=1; i<=n; i++) {
